@@ -27,7 +27,7 @@ export default function App() {
       title: "Work on portfolio",
       cat: 2,
       place: 0,
-      isFixed: true,
+      isFixed: false,
       isDone: false
     }
   ]);
@@ -50,7 +50,7 @@ export default function App() {
     setTasks(newTasks);
   };
 
-  const addTask = (text, category, place) => {
+  const addTask = (text, category, place, fixed) => {
     let newId = Math.max(...tasks.map((task) => task.id)) + 1;
     const newTasks = [
       ...tasks,
@@ -59,7 +59,7 @@ export default function App() {
         title: text,
         cat: parseInt(category),
         place: parseInt(place),
-        isFixed: true,
+        isFixed: fixed,
         isDone: false
       }
     ];
@@ -81,6 +81,7 @@ export default function App() {
                 cat={task.cat}
                 doTask={doTask}
                 isDone={task.isDone}
+                isFixed={task.isFixed}
                 removeTask={removeTask}
               />
             ))}
@@ -96,6 +97,7 @@ export default function App() {
                 cat={task.cat}
                 doTask={doTask}
                 isDone={task.isDone}
+                isFixed={task.isFixed}
                 removeTask={removeTask}
               />
             ))}
@@ -111,6 +113,7 @@ export default function App() {
                 cat={task.cat}
                 doTask={doTask}
                 isDone={task.isDone}
+                isFixed={task.isFixed}
                 removeTask={removeTask}
               />
             ))}
@@ -126,6 +129,7 @@ export default function App() {
                 cat={task.cat}
                 doTask={doTask}
                 isDone={task.isDone}
+                isFixed={task.isFixed}
                 removeTask={removeTask}
               />
             ))}
@@ -141,6 +145,7 @@ export default function App() {
                 cat={task.cat}
                 doTask={doTask}
                 isDone={task.isDone}
+                isFixed={task.isFixed}
                 removeTask={removeTask}
               />
             ))}
@@ -156,6 +161,7 @@ export default function App() {
                 cat={task.cat}
                 doTask={doTask}
                 isDone={task.isDone}
+                isFixed={task.isFixed}
                 removeTask={removeTask}
               />
             ))}
@@ -171,6 +177,7 @@ export default function App() {
                 cat={task.cat}
                 doTask={doTask}
                 isDone={task.isDone}
+                isFixed={task.isFixed}
                 removeTask={removeTask}
               />
             ))}
@@ -188,6 +195,7 @@ export default function App() {
                 cat={task.cat}
                 doTask={doTask}
                 isDone={task.isDone}
+                isFixed={task.isFixed}
                 removeTask={removeTask}
               />
             ))}

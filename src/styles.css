@@ -239,28 +239,31 @@ aside:before {
 .task.done span {
   text-decoration: line-through;
 }
-.cat_1.task input {
+.task.fixed span {
+  font-weight: bold;
+}
+.cat_1.task input, .cat_1.task span {
   color: var(--cat_1);
 }
-.cat_2.task input {
+.cat_2.task input, .cat_2.task span {
   color: var(--cat_2);
 }
-.cat_3.task input {
+.cat_3.task input, .cat_3.task span {
   color: var(--cat_3);
 }
-.cat_4.task input {
+.cat_4.task input, .cat_4.task span {
   color: var(--cat_4);
 }
-.cat_5.task input {
+.cat_5.task input, .cat_5.task span {
   color: var(--cat_5);
 }
-.cat_6.task input {
+.cat_6.task input, .cat_6.task span {
   color: var(--cat_6);
 }
-.cat_7.task input {
+.cat_7.task input, .cat_7.task span {
   color: var(--cat_7);
 }
-.cat_8.task input {
+.cat_8.task input, .cat_8.task span {
   color: var(--cat_8);
 }
 .task input[type="text"] {
@@ -306,9 +309,23 @@ aside:before {
   background:var(--log-dark);
   border: 0px solid var(--log);
 }
+#addTaskForm input[type="text"] {padding:3px; line-height: 10px;}
+::placeholder, select option:disabled, !select option:disabled {color:var(--log);}
 #addTaskForm select {font-size: 10px; border-width: 0 0 1px 0;}
 #addTaskForm select[name="category"] {border-width: 0 1px 1px 0;}
 #addTaskForm select[name="place"] {border-width: 0 0 1px 1px;}
+#addTaskForm label {display: block; position: relative; font-size:10px; line-height: 10px;}
+#addTaskForm #fixed_check {display: block; padding: 3px; position: relative;}
+#addTaskForm #fixed_check input[type="checkbox"] {opacity: 0;}
+#addTaskForm #fixed_check #cross {
+  position: absolute; width: 100%; height: 100%; top: 0; left: 0; opacity: .5;
+  background-image: url(https://www.flaticon.com/svg/static/icons/svg/1828/1828494.svg);
+  background-size: 80%; background-repeat: no-repeat; background-position: center; filter: invert(1);
+}
+#addTaskForm #fixed_check input[type="checkbox"]:checked + #cross {
+  background-image: url(https://www.flaticon.com/svg/static/icons/svg/1828/1828471.svg);
+  filter: invert(0); opacity: 1;
+}
 @media (min-width: 450px) {
   #root {
     grid-template-areas:
