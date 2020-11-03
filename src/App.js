@@ -31,16 +31,22 @@ export default function App() {
       isDone: false
     }
   ]);
+  React.useEffect(() => {
+    console.log('useEffect:');
+    console.log(tasks);
+  }, [tasks]);   
 
-  const doTask = (index) => {
+  const doTask = (index) => {    
     const newTasks = [...tasks];
-    newTasks.filter((task) => task.id === index).isDone = true;
+    let chosenTask = newTasks.filter(task => task.id === index);
+    chosenTask[0]['isDone'] = chosenTask[0]['isDone'] ? false : true;
     setTasks(newTasks);
   };
 
   const removeTask = (index) => {
     const newTasks = [...tasks];
-    newTasks.splice({ id: index }, 1);
+    let chosenTask = newTasks.findIndex(task => task.id === index);
+    newTasks.splice(chosenTask, 1);
     setTasks(newTasks);
   };
 
@@ -51,14 +57,13 @@ export default function App() {
       {
         id: newId,
         title: text,
-        cat: category,
-        place: place,
+        cat: parseInt(category),
+        place: parseInt(place),
         isFixed: true,
         isDone: false
       }
     ];
     setTasks(newTasks);
-    console.log(tasks);
   };
 
   return (

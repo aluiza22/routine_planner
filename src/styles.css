@@ -219,6 +219,7 @@ aside:before {
   top: -10px;
   font-size: 1.5em;
   text-shadow: 1px 1px 1px var(--day-dark);
+  pointer-events: none;
 }
 aside:before {
   color: var(--log-light);
