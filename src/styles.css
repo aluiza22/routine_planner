@@ -146,11 +146,11 @@ footer a {
   line-height: 0.8em;
   display: grid;
   grid-template-areas:
-    "header header"
-    "aside aside"
-    "main main"
-    "footer footer";
-  grid-template-columns: 200px 1fr;
+    "header"
+    "main"
+    "aside "
+    "footer ";
+  grid-template-columns: 1fr;
   grid-template-rows:
     auto
     auto
@@ -162,6 +162,7 @@ footer a {
   margin: 0 auto;
   padding: 10px;
 }
+main {order: 1;}
 h1,
 h2,
 h3,
@@ -313,9 +314,7 @@ aside:before {
   background-color: var(--neutral-dark);
   border-color: var(--neutral-light);
 }
-#addTaskForm {
-  padding: 10px;
-}
+#addTaskForm {margin-top: 40px; padding: 10px;}
 #taskOpts {
   display: flex;
   justify-content: space-between;
@@ -331,14 +330,17 @@ aside:before {
   background: none;
   border: 2px solid var(--log-dark);
   border-width: 2px;
+  color: var(--featured-dark);
+  line-height: 14px;
+  font-size: 14px;
 }
 #addTaskForm input[type="submit"] {
   width: 100%;
   background:none;
   border: 2px solid var(--log-dark);
   color: var(--log-dark);
-  padding: 10px 10px 5px;
-  font-size: 0.6em;
+  padding: 14px 10px 5px;
+  font-size: 0.8em;
   font-weight: bold;
   font-family: "Baloo Tammudu 2", sans-serif;
   line-height: 0.7em;
@@ -352,11 +354,9 @@ aside:before {
 }
 #addTaskForm input[type="text"] {
   padding: 3px 5px;
-  line-height: 10px;
-  font-size: 12px;
 }
-::placeholder, select option:disabled, !select option:disabled {color:var(--log);}
-#addTaskForm select {font-size: 12px; padding-top: 3px; padding-bottom: 3px; }
+::placeholder, select option:disabled, !select option:disabled {color:var(--log-light);}
+#addTaskForm select {padding-top: 3px; padding-bottom: 3px; }
 #addTaskForm select[name="category"] {border-width: 2px 1px 2px 2px;}
 #addTaskForm select[name="place"] {border-width: 2px 2px 2px 1px;}
 #addTaskForm label {
@@ -397,7 +397,13 @@ aside:before {
       auto
       1fr
       20px;
+    grid-template-columns: 200px 1fr;
   }
+  #addTaskForm input[type="text"], #addTaskForm select {
+    line-height: 12px;
+    font-size: 12px;
+  }
+  #addTaskForm input[type="submit"] {padding: 10px 10px 5px; font-size: 0.6em;}
 }
 
 /* dark mode */

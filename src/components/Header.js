@@ -6,7 +6,7 @@ export default function Header(props) {
 
   return (
     <header>
-      <img alt="calendar icon" src="https://www.flaticon.com/svg/static/icons/svg/2535/2535958.svg" width="40px" />
+      <img alt="calendar icon" src="logo.svg" width="40px" />
       <h1>Routine planner</h1>
       <div id="actions">
         <button onClick={props.resetWeek}>Reset week</button>

@@ -25,7 +25,7 @@ export default function AddTask({ addTask }) {
             className="input"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            
+            placeholder="ex: 'plan trip'"
           />
       </div>
 
