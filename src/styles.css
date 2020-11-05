@@ -407,4 +407,6 @@ aside:before {
 }
 
 /* dark mode */
-body.dark-theme {background:var(--dark);}
+body.dark-theme {
+  background:var(--dark);
+}
