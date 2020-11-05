@@ -8,21 +8,39 @@ export default function AddTask({ addTask }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!value) return;
-    console.log(fixed);
+    if (!value) {
+      alert('Task title can\'t be empty ):');
+      return
+    };
     addTask(value, category, place, fixed);
     setValue("");
   };
 
   return (
     <form id="addTaskForm" onSubmit={handleSubmit}>
+      <div>
+          <label>title:</label>
+          <input
+            type="text"
+            className="input"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            
+          />
+      </div>
+
       <div id="taskOpts">
         <div>
           <label>category:</label>
           <select name="category" onChange={(e) => setCategory(e.target.value)}>
-            <option value="1">family</option>
-            <option value="2">carrer</option>
-            <option value="3">household</option>
+            <option value="1">personal</option>
+            <option value="2">family</option>
+            <option value="3">work</option>
+            <option value="4">health</option>
+            <option value="5">household</option>
+            <option value="6">carrer</option>
+            <option value="7">school</option>
+            <option value="8">random</option>
           </select>
         </div>
         <div>
@@ -43,16 +61,7 @@ export default function AddTask({ addTask }) {
           <span id="cross"></span>
         </label>
       </div>
-      <div>
-          <label>title:</label>
-          <input
-            type="text"
-            className="input"
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            required
-          />
-      </div>
+      
       <input type="submit" value="add new task" />
     </form>
   );

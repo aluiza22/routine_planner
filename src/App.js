@@ -5,35 +5,42 @@ import AddTask from "./components/AddTask";
 import "./styles.css";
 
 export default function App() {
-  const [tasks, setTasks] = React.useState([
+  const staticTasks = [
     {
       id: 0,
-      title: "Call family",
+      title: "Example task",
       cat: 1,
       place: 0,
-      isFixed: true,
+      isFixed: false,
       isDone: false
     },
     {
       id: 1,
-      title: "Study React",
+      title: "Reset persistent task",
       cat: 2,
       place: 0,
       isFixed: true,
-      isDone: true
+      isDone: false
     },
     {
       id: 2,
-      title: "Work on portfolio",
+      title: "Completed task",
       cat: 2,
       place: 0,
       isFixed: false,
-      isDone: false
+      isDone: true
     }
-  ]);
+  ];
+  const store = require('store');
+  const savedTasks = store.get('tasks') && store.get('tasks').length ? store.get('tasks') : staticTasks;
+  const date = new Date();
+  const isToday = date.getDay();
+
+  const [tasks, setTasks] = React.useState(savedTasks);
   React.useEffect(() => {
     console.log('useEffect:');
     console.log(tasks);
+    store.set('tasks', tasks);
   }, [tasks]);   
 
   const doTask = (index) => {    
@@ -51,7 +58,7 @@ export default function App() {
   };
 
   const addTask = (text, category, place, fixed) => {
-    let newId = Math.max(...tasks.map((task) => task.id)) + 1;
+    let newId = tasks.length > 0 ? Math.max(...tasks.map((task) => task.id)) + 1 : 0;
     const newTasks = [
       ...tasks,
       {
@@ -66,11 +73,18 @@ export default function App() {
     setTasks(newTasks);
   };
 
+  const resetWeek = () => {
+    const newTasks = [...tasks];
+    let fixedTasks = newTasks.filter(task => task.isFixed === true);
+    fixedTasks.map(task => {if (task.isDone === true) { task.isDone = false ;}});    
+    setTasks(fixedTasks);
+  };
+
   return (
     <>
-      <Header />
+      <Header resetWeek={resetWeek} />
       <main id="week">
-        <section className="day" id="monday" title="monday">
+        <section className={"day"+ (isToday === 1 ? " today":"")} id="monday" title="monday">
           {tasks
             .filter((task) => task.place === 1)
             .map((task) => (
@@ -86,7 +100,7 @@ export default function App() {
               />
             ))}
         </section>
-        <section className="day" id="tuesday" title="tuesday">
+        <section className={"day"+ (isToday === 2 ? " today":"")} id="tuesday" title="tuesday">
           {tasks
             .filter((task) => task.place === 2)
             .map((task) => (
@@ -102,7 +116,7 @@ export default function App() {
               />
             ))}
         </section>
-        <section className="day" id="wednesday" title="wednesday">
+        <section className={"day"+ (isToday === 3 ? " today":"")} id="wednesday" title="wednesday">
           {tasks
             .filter((task) => task.place === 3)
             .map((task) => (
@@ -118,7 +132,7 @@ export default function App() {
               />
             ))}
         </section>
-        <section className="day" id="thursday" title="thursday">
+        <section className={"day"+ (isToday === 4 ? " today":"")} id="thursday" title="thursday">
           {tasks
             .filter((task) => task.place === 4)
             .map((task) => (
@@ -134,7 +148,7 @@ export default function App() {
               />
             ))}
         </section>
-        <section className="day" id="friday" title="friday">
+        <section className={"day"+ (isToday === 5 ? " today":"")} id="friday" title="friday">
           {tasks
             .filter((task) => task.place === 5)
             .map((task) => (
@@ -150,7 +164,7 @@ export default function App() {
               />
             ))}
         </section>
-        <section className="day" id="saturday" title="saturday">
+        <section className={"day"+ (isToday === 6 ? " today":"")} id="saturday" title="saturday">
           {tasks
             .filter((task) => task.place === 6)
             .map((task) => (
@@ -166,7 +180,7 @@ export default function App() {
               />
             ))}
         </section>
-        <section className="day" id="sunday" title="sunday">
+        <section className={"day"+ (isToday === 0 ? " today":"")} id="sunday" title="sunday">
           {tasks
             .filter((task) => task.place === 7)
             .map((task) => (
