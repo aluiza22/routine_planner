@@ -1,8 +1,15 @@
 import React from "react";
 
 export default function Header(props) {
-
-  const changeTheme = () => {document.body.classList.toggle("dark-theme");}
+  const store = require('store');
+  const changeTheme = () => {
+    if (store.get('dark') && store.get('dark') === 'on') {
+      store.set('dark', 'off');   
+    } else {
+      store.set('dark', 'on'); 
+    }
+    document.body.classList.toggle("dark-theme");
+  }
 
   return (
     <header>

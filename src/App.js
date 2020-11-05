@@ -38,10 +38,12 @@ export default function App() {
 
   const [tasks, setTasks] = React.useState(savedTasks);
   React.useEffect(() => {
-    console.log('useEffect:');
-    console.log(tasks);
     store.set('tasks', tasks);
   }, [tasks]);   
+
+  if (store.get('dark') && store.get('dark') === 'on') {
+    document.body.classList.add("dark-theme");
+  }
 
   const doTask = (index) => {    
     const newTasks = [...tasks];
@@ -222,7 +224,7 @@ export default function App() {
           <a href="http://www.freepik.com/" title="Freepik">
             Freepik
           </a>
-          from
+           from 
           <a href="https://www.flaticon.com/" title="Flaticon">
             www.flaticon.com
           </a>
