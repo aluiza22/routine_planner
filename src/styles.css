@@ -178,9 +178,9 @@ h1 {
   margin: 10px 0 0 0;
 }
 button {
-  background: none;
+  background-color: var(--featured-light);
   padding: 10px 10px 5px;
-  color: var(--featured);
+  color: var(--neutral-light);
   border: 2px solid var(--featured-light);
   font-weight: bold;
   transition: var(--transition);
@@ -190,9 +190,11 @@ button {
   line-height: 0.7em;
   cursor: pointer;
 }
+.dark-theme button {color: var(--dark)}
 button:hover,
 button:focus {
   border-color: var(--log);
+  background-color: var(--log);
 }
 div#actions {
   display: flex;
@@ -209,6 +211,7 @@ div#actions {
   position: relative;
   text-align: center;
   margin: 0 0 -6px 10px;
+  background: none;
 }
 /*.dark-theme #dark_mode {filter: invert(1)}*/
 #dark_mode:before {
@@ -329,6 +332,7 @@ aside:before {
   text-decoration: initial;
   transition: var(--transition);
   cursor: pointer;
+  background: none;
 }
 .task button.check {
   border: 1px solid var(--neutral-dark);
@@ -354,17 +358,18 @@ aside:before {
 #addTaskForm input[type="text"], #addTaskForm select {
   width: 100%;
   background: none;
-  border: 2px solid var(--log-dark);
+  border: 2px solid var(--neutral);
   border-width: 2px;
-  color: var(--featured-dark);
+  color: var(--neutral);
   line-height: 14px;
   font-size: 14px;
 }
+.dark-theme #addTaskForm input[type="text"], .dark-theme #addTaskForm select {color: var(--dark); border-color: var(--dark)}
 #addTaskForm input[type="submit"] {
   width: 100%;
-  background:none;
+  background:var(--log-dark);
   border: 2px solid var(--log-dark);
-  color: var(--log-dark);
+  color: var(--neutral);
   padding: 14px 10px 5px;
   font-size: 0.8em;
   font-weight: bold;
@@ -373,15 +378,15 @@ aside:before {
   cursor: pointer;
   transition: var(--transition);
 }
+.dark-theme #addTaskForm input[type="submit"] {color: var(--dark)}
 #addTaskForm input[type="submit"]:hover,
 #addTaskForm input[type="submit"]:focus {
-  border-color: var(--featured-dark);
-  color: var(--featured-dark);
+  background:var(--featured-dark); border-color:var(--featured-dark);
 }
 #addTaskForm input[type="text"] {
   padding: 3px 5px;
 }
-::placeholder, select option:disabled, !select option:disabled {color:var(--log-light);}
+::placeholder, select option:disabled, !select option:disabled {color:var(--neutral); opacity: .5;}
 #addTaskForm select {padding-top: 3px; padding-bottom: 3px; }
 #addTaskForm select[name="category"] {border-width: 2px 1px 2px 2px;}
 #addTaskForm select[name="place"] {border-width: 2px 2px 2px 1px;}
@@ -390,12 +395,13 @@ aside:before {
   position: relative;
   font-size: 12px;
   line-height: 4px;
-  color: var(--neutral);
+  color: var(--neutral-light);
   font-family: "Baloo Tammudu 2", sans-serif;
   margin-top: 2px;
   text-align: center;
   pointer-events: none;
 }
+.dark-theme #addTaskForm label {color: var(--dark)}
 #addTaskForm #fixed_check {
   display: block;
   padding: 14px 4px;
