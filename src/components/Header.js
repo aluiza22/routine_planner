@@ -14,10 +14,10 @@ export default function Header(props) {
   return (
     <header>
       <img alt="calendar icon" src="logo.svg" width="40px" />
-      <h1>Routine planner</h1>
+      <h1>week planner</h1>
       <div id="actions">
         <button onClick={props.resetWeek}>Reset week</button>
-        <button id="dark_mode" onClick={changeTheme} title="dark mode">⚫️</button>
+        <button id="dark_mode" onClick={changeTheme} title="dark mode">mode</button>
       </div>
     </header>
   );

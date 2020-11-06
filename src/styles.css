@@ -194,10 +194,36 @@ button:hover,
 button:focus {
   border-color: var(--log);
 }
+div#actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 #dark_mode {
   border-width: 0px;
+  color: #191919;
+  color: var(--dark);
+  transition: 0s all;
+  font-size: 10px;
+  padding: 12px 0px 0px;
+  position: relative;
+  text-align: center;
+  margin: 0 0 -6px 10px;
 }
-.dark-theme #dark_mode {filter: invert(1)}
+/*.dark-theme #dark_mode {filter: invert(1)}*/
+#dark_mode:before {
+  content: "🌚 ";
+  font-size: 14px;
+  position: absolute;
+  top: 0;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+.dark-theme #dark_mode {color: var(--day-light)}
+.dark-theme #dark_mode:before {
+  content: "🌞 ";
+}
 header {
   display: flex;
   justify-content: space-between;
