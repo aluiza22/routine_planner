@@ -3,7 +3,7 @@ import React from "react";
 export default function AddTask({ addTask }) {
   const [value, setValue] = React.useState("");
   const [category, setCategory] = React.useState("1");
-  const [place, setPlace] = React.useState("0");
+  const [place, setPlace] = React.useState("8");
   const [fixed, setFixed] = React.useState(false);
 
   const handleSubmit = (e) => {
@@ -46,7 +46,7 @@ export default function AddTask({ addTask }) {
         <div>
           <label>place:</label>
           <select name="place" onChange={(e) => setPlace(e.target.value)}>
-            <option value="0">week log</option>
+            <option value="8">week log</option>
             <option value="1">monday</option>
             <option value="2">tuesday</option>
             <option value="3">wednesday</option>

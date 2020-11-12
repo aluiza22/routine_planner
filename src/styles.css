@@ -238,6 +238,7 @@ header {
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-auto-rows: minmax(200px, 1fr);
 }
+#log_tasks {min-height: 200px;}
 .day {
   background: var(--day);
   position: relative;
@@ -277,6 +278,7 @@ aside:before {
   font-size: 14px;
   justify-content: space-between;
   align-items: center;
+  transition: all .4 ease;
 }
 .task span {font-size: .8rem;}
 .task.done span {

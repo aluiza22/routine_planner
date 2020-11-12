@@ -1,4 +1,5 @@
 import React from "react";
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import Header from "./components/Header";
 import Task from "./components/Task";
 import AddTask from "./components/AddTask";
@@ -7,26 +8,26 @@ import "./styles.css";
 export default function App() {
   const staticTasks = [
     {
-      id: 0,
+      id: "task_0",
       title: "Example task",
       cat: 1,
-      place: 0,
+      place: 8,
       isFixed: false,
       isDone: false
     },
     {
-      id: 1,
+      id: "task_1",
       title: "Reset persistent task",
       cat: 2,
-      place: 0,
+      place: 8,
       isFixed: true,
       isDone: false
     },
     {
-      id: 2,
+      id: "task_2",
       title: "Completed task",
       cat: 2,
-      place: 0,
+      place: 8,
       isFixed: false,
       isDone: true
     }
@@ -60,7 +61,8 @@ export default function App() {
   };
 
   const addTask = (text, category, place, fixed) => {
-    let newId = tasks.length > 0 ? Math.max(...tasks.map((task) => task.id)) + 1 : 0;
+    let numId = tasks.length > 0 ? Math.max(...tasks.map((task) => task.id.slice(5))) + 1 : 0;
+    let newId = "task_"+ numId;
     const newTasks = [
       ...tasks,
       {
@@ -82,27 +84,53 @@ export default function App() {
     setTasks(fixedTasks);
   };
 
+  const onDragEnd = result => {
+    const {destination, source, draggableId } = result;
+    console.log(result);
+
+    if (!destination) {
+      return;
+    }
+
+    const oldList = +source.droppableId;
+    const newList = +destination.droppableId;
+    console.log(oldList, newList);
+    if (oldList !== newList) {
+      const newTasks = [...tasks];
+      let movedTask = newTasks.filter(task => task.id === draggableId);
+      movedTask[0]['place'] = newList;
+      setTasks(newTasks);
+    }
+  };
+
   return (
-    <>
+    <DragDropContext onDragEnd={onDragEnd}>      
       <Header resetWeek={resetWeek} />
       <main id="week">
-        <section className={"day"+ (isToday === 1 ? " today":"")} id="monday" title="monday">
-          {tasks
-            .filter((task) => task.place === 1)
-            .map((task) => (
-              <Task
-                key={task.id}
-                id={task.id}
-                title={task.title}
-                cat={task.cat}
-                doTask={doTask}
-                isDone={task.isDone}
-                isFixed={task.isFixed}
-                removeTask={removeTask}
-              />
-            ))}
-        </section>
-        <section className={"day"+ (isToday === 2 ? " today":"")} id="tuesday" title="tuesday">
+        <Droppable droppableId="1" >
+          {provided => (
+          <div ref={provided.innerRef} {...provided.droppableProps} className={"day"+ (isToday === 1 ? " today":"")} id="monday" title="monday">
+            {tasks
+              .filter((task) => task.place === 1)
+              .map((task) => (
+                <Task
+                  key={task.id}
+                  id={task.id}
+                  title={task.title}
+                  cat={task.cat}
+                  doTask={doTask}
+                  isDone={task.isDone}
+                  isFixed={task.isFixed}
+                  removeTask={removeTask}
+                />
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+        <Droppable key="2" droppableId="2" >
+        {provided => (
+          <div ref={provided.innerRef} {...provided.droppableProps} className={"day"+ (isToday === 2 ? " today":"")} id="tuesday" title="tuesday">
           {tasks
             .filter((task) => task.place === 2)
             .map((task) => (
@@ -117,9 +145,14 @@ export default function App() {
                 removeTask={removeTask}
               />
             ))}
-        </section>
-        <section className={"day"+ (isToday === 3 ? " today":"")} id="wednesday" title="wednesday">
-          {tasks
+            {provided.placeholder}
+          </div>
+        )}
+        </Droppable>
+        <Droppable key="3" droppableId="3" >
+          {provided => (
+          <div ref={provided.innerRef} {...provided.droppableProps} className={"day"+ (isToday === 3 ? " today":"")} id="wednesday" title="wednesday">
+            {tasks
             .filter((task) => task.place === 3)
             .map((task) => (
               <Task
@@ -133,9 +166,14 @@ export default function App() {
                 removeTask={removeTask}
               />
             ))}
-        </section>
-        <section className={"day"+ (isToday === 4 ? " today":"")} id="thursday" title="thursday">
-          {tasks
+            {provided.placeholder}
+          </div>
+        )}
+        </Droppable>
+        <Droppable key="4" droppableId="4" >
+          {provided => (
+          <div ref={provided.innerRef} {...provided.droppableProps} className={"day"+ (isToday === 4 ? " today":"")} id="thursday" title="thursday">
+            {tasks
             .filter((task) => task.place === 4)
             .map((task) => (
               <Task
@@ -149,8 +187,13 @@ export default function App() {
                 removeTask={removeTask}
               />
             ))}
-        </section>
-        <section className={"day"+ (isToday === 5 ? " today":"")} id="friday" title="friday">
+            {provided.placeholder}
+          </div>
+        )}
+        </Droppable>
+        <Droppable key="5" droppableId="5" >
+          {provided => (
+          <div ref={provided.innerRef} {...provided.droppableProps} className={"day"+ (isToday === 5 ? " today":"")} id="friday" title="friday">
           {tasks
             .filter((task) => task.place === 5)
             .map((task) => (
@@ -165,9 +208,14 @@ export default function App() {
                 removeTask={removeTask}
               />
             ))}
-        </section>
-        <section className={"day"+ (isToday === 6 ? " today":"")} id="saturday" title="saturday">
-          {tasks
+            {provided.placeholder}
+          </div>
+        )}
+        </Droppable>
+        <Droppable key="6" droppableId="6" >
+          {provided => (
+          <div ref={provided.innerRef} {...provided.droppableProps} className={"day"+ (isToday === 6 ? " today":"")} id="saturday" title="saturday">
+            {tasks
             .filter((task) => task.place === 6)
             .map((task) => (
               <Task
@@ -181,9 +229,14 @@ export default function App() {
                 removeTask={removeTask}
               />
             ))}
-        </section>
-        <section className={"day"+ (isToday === 0 ? " today":"")} id="sunday" title="sunday">
-          {tasks
+            {provided.placeholder}
+          </div>
+        )}
+        </Droppable>
+        <Droppable key="7" droppableId="7" >
+          {provided => (
+          <div ref={provided.innerRef} {...provided.droppableProps} className={"day"+ (isToday === 0 ? " today":"")} id="sunday" title="sunday">
+            {tasks
             .filter((task) => task.place === 7)
             .map((task) => (
               <Task
@@ -197,12 +250,17 @@ export default function App() {
                 removeTask={removeTask}
               />
             ))}
-        </section>
+            {provided.placeholder}
+          </div>
+        )}
+        </Droppable>
       </main>
       <aside title="week log">
-        <div id="log_tasks">
-          {tasks
-            .filter((task) => task.place === 0)
+        <Droppable key="8" droppableId="8" >
+        {provided => (
+          <div ref={provided.innerRef} {...provided.droppableProps} id="log_tasks">
+            {tasks
+            .filter((task) => task.place === 8)
             .map((task) => (
               <Task
                 key={task.id}
@@ -215,7 +273,10 @@ export default function App() {
                 removeTask={removeTask}
               />
             ))}
-        </div>
+            {provided.placeholder}
+          </div>
+        )}
+        </Droppable>
         <AddTask addTask={addTask} />
       </aside>
       <footer>
@@ -227,6 +288,6 @@ export default function App() {
           </a>
         </p>
       </footer>
-    </>
+    </DragDropContext>
   );
 }
