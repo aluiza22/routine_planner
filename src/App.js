@@ -6,6 +6,7 @@ import AddTask from "./components/AddTask";
 import "./styles.css";
 
 export default function App() {
+  // creating the sample tasks for first time use
   const staticTasks = [
     {
       id: "task_0",
@@ -32,20 +33,26 @@ export default function App() {
       isDone: true
     }
   ];
+  // if not first use, loads user's tasks
   const store = require('store');
   const savedTasks = store.get('tasks') && store.get('tasks').length ? store.get('tasks') : staticTasks;
+  // gets today day
   const date = new Date();
   const isToday = date.getDay();
 
+  // sets tasks state 
   const [tasks, setTasks] = React.useState(savedTasks);
+  // sets local storage updates
   React.useEffect(() => {
     store.set('tasks', tasks);
   }, [tasks]);   
 
+  // dark mode setting
   if (store.get('dark') && store.get('dark') === 'on') {
     document.body.classList.add("dark-theme");
   }
-
+  
+  // sets isDone to true/false
   const doTask = (index) => {    
     const newTasks = [...tasks];
     let chosenTask = newTasks.filter(task => task.id === index);
@@ -53,6 +60,7 @@ export default function App() {
     setTasks(newTasks);
   };
 
+  // removes item from tasks
   const removeTask = (index) => {
     const newTasks = [...tasks];
     let chosenTask = newTasks.findIndex(task => task.id === index);
@@ -61,8 +69,10 @@ export default function App() {
   };
 
   const addTask = (text, category, place, fixed) => {
+    // finds next id
     let numId = tasks.length > 0 ? Math.max(...tasks.map((task) => task.id.slice(5))) + 1 : 0;
     let newId = "task_"+ numId;
+    // adds item to taks
     const newTasks = [
       ...tasks,
       {
@@ -77,6 +87,7 @@ export default function App() {
     setTasks(newTasks);
   };
 
+  // new tasks keeping only the fixed ones and setting them to not done
   const resetWeek = () => {
     const newTasks = [...tasks];
     let fixedTasks = newTasks.filter(task => task.isFixed === true);
@@ -84,22 +95,35 @@ export default function App() {
     setTasks(fixedTasks);
   };
 
+  const reorder = (tasklist, oldIndex, newIndex) => {
+    const changed = tasklist.splice(oldIndex,oldIndex+1);
+    const before = tasklist.slice(0,newIndex);
+    const after = tasklist.slice(newIndex);
+    setTasks(before.concat(changed, after));
+  };
+
   const onDragEnd = result => {
     const {destination, source, draggableId } = result;
-    console.log(result);
-
     if (!destination) {
       return;
     }
 
     const oldList = +source.droppableId;
     const newList = +destination.droppableId;
-    console.log(oldList, newList);
-    if (oldList !== newList) {
+    const oldOrder = +source.index;
+    const newOrder = +destination.index;
+    
+    if (oldList !== newList) { 
       const newTasks = [...tasks];
       let movedTask = newTasks.filter(task => task.id === draggableId);
       movedTask[0]['place'] = newList;
-      setTasks(newTasks);
+      if (draggableId == oldOrder) {
+        reorder([...newTasks], oldOrder, newOrder);
+      } else {
+        setTasks(newTasks);
+      }
+    } else if (oldOrder !== newOrder) {
+      reorder([...tasks], oldOrder, newOrder);
     }
   };
 
